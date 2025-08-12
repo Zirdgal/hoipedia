@@ -22,18 +22,27 @@
     <div>
         <h1>Game Date: <span id="gameDate"></span></h1>
         <h2>Winning Team: <span id="winningTeam"></span></h2>
-
+        <h2>Best Player: <span id="bestPlayer"></span></h2>
+        <p>So uhh this is a test entry nothing actually important should come from this page :)</p>
         <div id="tablesContainer"></div>
     </div>
 <script>
-    // Example JSON data (replace this with fetch if needed)
     fetch('../gameStats/game0.json')
     .then(res => res.json())
     .then(gameData => {
         // Display date and winning team
         document.getElementById('gameDate').textContent = gameData.date;
         document.getElementById('winningTeam').textContent = gameData.winningTeam;
-    
+        // Find best player 
+        const bestPlayer = [...gameData.players]
+            .sort((a, b) => {
+                if (b.rating !== a.rating) return b.rating - a.rating;
+                return b.divisions - a.divisions; // tie-breaker
+            })[0];
+
+        // Display best player info
+        document.getElementById('bestPlayer').textContent = `${bestPlayer.user} (${bestPlayer.country}) - Rating: ${bestPlayer.rating.toFixed(2)}`;
+
         // Factions we want separate tables for
         const factions = ['Allies', 'Axis', 'Comintern', 'GEACPS', 'None'];
     
