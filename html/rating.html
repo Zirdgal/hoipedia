@@ -1,0 +1,221 @@
+<!DOCTYPE html>
+<html lang="en">
+<head>
+    <meta charset="UTF-8">
+    <meta name="viewport" content="width=device-width, initial-scale=1.0">
+
+    <link rel="stylesheet" href="/s.css">
+
+
+
+    <title>HoiPedia</title>
+</head>
+<body>
+    <nav>
+        <div id="nav-inner">
+            <a href="/index.html">HoiPedia</a>
+            <a href="/html/games.html">Games</a>
+            <a href="/html/players.html">Players</a>
+            <a href="/html/rating.html">Rating</a>
+        </div>
+    </nav>
+    <div>
+        <p>Uhhh Import Game.log file and you get cool stuff :)</p>
+        <p>This should only be used by someone who knows what they doing</p>
+        <p>Also the Game.log will only work if you use Zird Rating Hoi4 Mod</p>
+		<h1>HOI4 Log Parser</h1>
+        <input type="file" id="FileUploadBtn"></input>
+        <button id="DownloadBtn" disabled>Download Parsed JSON</button>
+
+		<h1>HOI4 Rating Calculator</h1>
+		<input type="file" id="fileInput" accept=".json">
+		<button id="DownloadBtn2" disabled>Download Parsed JSON</button>
+
+    </div>
+
+    
+
+
+
+
+
+
+
+
+
+
+    <!-- Vibe coded script -->
+    <script>
+		// Parse from log into Json
+		const DownloadBtn = document.getElementById("DownloadBtn");
+        let parsedData = null;
+
+        function keepFirstAndLast(arr) {
+            const indices = {}; // { tag: { first: i, last: j } }
+
+            arr.forEach((entry, i) => {
+                const tag = entry.tag;
+                if (!indices[tag]) {
+                    indices[tag] = {
+                        first: i,
+                        last: i
+                    };
+                } else {
+                    indices[tag].last = i;
+                }
+            });
+
+            const result = [];
+            for (const tag in indices) {
+                const {
+                    first,
+                    last
+                } = indices[tag];
+                result.push(arr[first]);
+                if (last !== first) {
+                    result.push(arr[last]);
+                }
+            }
+
+            return result;
+        }
+        document.getElementById('FileUploadBtn').addEventListener('change', function(event) {
+            const file = event.target.files[0];
+            if (!file) return;
+
+            const reader = new FileReader();
+            reader.onload = function(e) {
+                const text = e.target.result;
+
+                // regex pattern for parsing lines (adjust if needed)
+                const pattern = /\{ZIRD-RATING\},(\w+),([^,]+),Divs:(\d+),casualties:(\d+),Mills:(\d+),Civs:(\d+),ShipYards:(\d+),Ships:(\d+),ControlledStates:(\d+)/g;
+                let match;
+                parsedData = [];
+
+                while ((match = pattern.exec(text)) !== null) {
+                    parsedData.push({
+                        tag: match[1],
+                        country: match[2],
+                        divisions: parseInt(match[3]),
+                        casualties: parseInt(match[4]),
+                        military_factories: parseInt(match[5]),
+                        civilian_factories: parseInt(match[6]),
+                        shipyards: parseInt(match[7]),
+                        ships: parseInt(match[8]),
+                        states: parseInt(match[9])
+                    });
+                }
+
+                parsedData = keepFirstAndLast(parsedData);
+
+                if (parsedData.length) {
+                    DownloadBtn.disabled = false;
+                    alert('Parsing complete! Click the button to download JSON.');
+                } else {
+                    DownloadBtn.disabled = true;
+                    alert('No valid data found in the log file.');
+                }
+            };
+
+            reader.readAsText(file);
+        });
+        DownloadBtn.addEventListener('click', function() {
+            if (!parsedData) return;
+
+            const jsonStr = JSON.stringify(parsedData, null, 2);
+            const blob = new Blob([jsonStr], {
+                type: "application/json"
+            });
+            const url = URL.createObjectURL(blob);
+
+            const a = document.createElement('a');
+            a.href = url;
+            a.download = "parsed_hoi4_rating.json";
+            document.body.appendChild(a);
+            a.click();
+
+            // Clean up
+            setTimeout(() => {
+                URL.revokeObjectURL(url);
+                a.remove();
+            }, 0);
+        });
+
+	//Parse from Json into game json that displays nicely :)
+	let processedData = null;
+
+	document.getElementById('fileInput').addEventListener('change', function(event) {
+		const file = event.target.files[0];
+		if (!file) return;
+
+		const reader = new FileReader();
+		reader.onload = function(e) {
+			const uploadedData = JSON.parse(e.target.result);
+
+			// Group by tag
+			const grouped = {};
+			uploadedData.forEach(entry => {
+				if (!grouped[entry.tag]) grouped[entry.tag] = [];
+				grouped[entry.tag].push(entry);
+			});
+
+			const results = [];
+			Object.keys(grouped).forEach(tag => {
+				const entries = grouped[tag];
+				const first = entries[0];
+				const last = entries[entries.length - 1];
+
+				const statsToCheck = ["divisions", "military_factories", "civilian_factories", "shipyards", "ships", "states"];
+				let totalRating = 0;
+				let statCount = 0;
+
+				statsToCheck.forEach(stat => {
+					if (first[stat] > 0) {
+                        let ratio = last[stat] / first[stat];
+                        // Scale ratio so that 2x = 1.0 rating contribution
+                        // Ratio of 1x = 0.5 rating, etc.
+                        let scaledRatio = ratio / 2;
+                        totalRating += scaledRatio;
+                        statCount++;
+                    }
+				});
+
+				const rating = statCount > 0 ? totalRating / statCount : 0;
+
+				results.push({
+					tag: last.tag,
+					country: last.country,
+					divisions: last.divisions,
+					casualties: last.casualties, // Only shown, not used in rating
+					military_factories: last.military_factories,
+					civilian_factories: last.civilian_factories,
+					shipyards: last.shipyards,
+					ships: last.ships,
+					states: last.states,
+					rating: rating.toFixed(2)
+				});
+			});
+
+			processedData = results;
+			document.getElementById('DownloadBtn2').disabled = false;
+		};
+		reader.readAsText(file);
+	});
+
+	document.getElementById('DownloadBtn2').addEventListener('click', function() {
+		if (!processedData) return;
+		const blob = new Blob([JSON.stringify(processedData, null, 2)], {
+			type: "application/json"
+		});
+		const url = URL.createObjectURL(blob);
+
+		const a = document.createElement("a");
+		a.href = url;
+		a.download = "processed_ratings.json";
+		a.click();
+
+		URL.revokeObjectURL(url);
+	});
+</script>
+</body>
+</html>

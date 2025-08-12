@@ -1,0 +1,70 @@
+﻿<!DOCTYPE html>
+<html lang="en">
+<head>
+    <meta charset="UTF-8">
+    <meta name="viewport" content="width=device-width, initial-scale=1.0">
+
+    <link rel="stylesheet" href="/s.css">
+
+
+
+    <title>HoiPedia</title>
+</head>
+<body>
+    <nav>
+        <div id="nav-inner">
+            <a href="/index.html">HoiPedia</a>
+            <a href="/html/games.html">Games</a>
+            <a href="/html/players.html">Players</a>
+            <a href="/html/rating.html">Rating</a>
+        </div>
+    </nav>
+    <div>
+        <h1>Latest Games</h1>
+        <table id="gamesTable">
+          <thead>
+            <tr>
+              <th>Date</th>
+              <th>Winning Team</th>
+              <th>Top Player</th>
+              <th>Rating 0.1</th>
+            </tr>
+          </thead>
+          <tbody></tbody>
+        </table>
+    </div>
+
+<script>
+    fetch('/gameStats/index.json')
+        .then(res => res.json())
+        .then(files => {
+            return Promise.all(
+                files.map(file => fetch(`/gameStats/${file}`).then(r => r.json()))
+            );
+        })
+        .then(allGames => {
+            const tbody = document.querySelector('#gamesTable tbody');
+            allGames.forEach(game => {
+                // Sort players by rating and take the top one
+                const topPlayer = game.players.sort((a, b) => b.rating - a.rating)[0];
+    
+                const row = document.createElement('tr');
+                row.innerHTML = `
+            <td>${game.date}</td>
+            <td>${game.winningTeam}</td>
+            <td>${topPlayer.user} (${topPlayer.country})</td>
+            <td>${topPlayer.rating.toFixed(2)}</td>
+          `;
+                // Add click listener that redirects to the game's link
+                row.style.cursor = 'pointer';  // change cursor on hover to indicate clickable
+                row.addEventListener('click', () => {
+                    window.location.href = game.link;
+                });
+          
+                tbody.appendChild(row);
+            });
+        })
+        .catch(err => console.error('Error loading games:', err));
+</script>
+</body>
+</html>

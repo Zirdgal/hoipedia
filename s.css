@@ -1,0 +1,67 @@
+﻿:root {
+    --text: #e7e0fb;
+    --background: #0c061c;
+    --primary: #1a0f38;
+    --secondary: #3e2879;
+    --accent: #f6a4f5;
+}
+body {
+    background-color: var(--background);
+    color: var(--text);
+    font-family: "Lato", sans-serif;
+    font-weight: 400;
+    
+    margin: 0 auto;
+}
+body div {
+    margin: 0 auto;
+    width: 1280px;
+}
+a {
+    color: var(--text);
+}
+a:hover {
+    color: var(--accent);
+}
+
+nav {
+    width: 100%;
+    background-color: var(--secondary);
+
+    display: flex;
+    flex-direction: row;
+    justify-content: center;
+    align-items: center;
+}
+#nav-inner {
+    width: 1280px;
+    height: 5vh;
+    display: flex;
+    flex-direction: row;
+    justify-content: space-around;
+    text-align: center;
+    align-items: center;
+}
+#nav-inner a {
+    padding: 1vh 2vw;
+    font-weight: 600;
+    font-size: 18px;
+    text-decoration: none;
+}
+table {
+  width: 100%;
+  border-collapse: collapse;
+  margin-top: 20px;
+  text-align: left;
+}
+th, td {
+  padding: 10px;
+  border-bottom: 1px solid var(--secondary);
+}
+th {
+  text-align: left;
+  background: var(--secondary);
+}
+tr:hover {
+  background: var(--primary);
+}

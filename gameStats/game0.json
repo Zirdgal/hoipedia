@@ -1,0 +1,38 @@
+﻿{
+    "date": "2025-08-12",
+    "winningTeam": "None, Test Game",
+    "link": "/games/game0.html",
+    "players": [
+        {
+        "user": "Zirdgal",
+        "tag": "GER",
+        "country": "the German Reich",
+        "faction": "Axis",
+        "divisions": 35,
+        "casualties": 0,
+        "military_factories": 28,
+        "civilian_factories": 44,
+        "shipyards": 10,
+        "ships": 54,
+        "states": 24,
+        "rating": 0.51
+        },
+        {
+        "user": "Odobuz",
+        "tag": "LIT",
+        "faction": "None",
+        "country": "the Lithuanian Republic",
+        "divisions": 7,
+        "casualties": 0,
+        "military_factories": 2,
+        "civilian_factories": 7,
+        "shipyards": 0,
+        "ships": 0,
+        "states": 4,
+        "rating": 0.50
+        }
+    ]
+}
+
+
+
