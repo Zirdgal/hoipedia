@@ -1,7 +1,7 @@
 ﻿{
     "date": "2025-08-12",
     "winningTeam": "None, Test Game",
-    "link": "/games/game0.html",
+    "link": "./games/game0.html",
     "players": [
         {
         "user": "Zirdgal",
