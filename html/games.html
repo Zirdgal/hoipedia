@@ -58,7 +58,7 @@
                 // Add click listener that redirects to the game's link
                 row.style.cursor = 'pointer';  // change cursor on hover to indicate clickable
                 row.addEventListener('click', () => {
-                    window.location.href = "." + game.link;
+                    window.location.href = `.${game.path}`;
                 });
           
                 tbody.appendChild(row);
