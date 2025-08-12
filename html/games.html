@@ -4,7 +4,7 @@
     <meta charset="UTF-8">
     <meta name="viewport" content="width=device-width, initial-scale=1.0">
 
-    <link rel="stylesheet" href="/s.css">
+    <link rel="stylesheet" href="./../s.css">
 
 
 
@@ -13,10 +13,10 @@
 <body>
     <nav>
         <div id="nav-inner">
-            <a href="/index.html">HoiPedia</a>
-            <a href="/html/games.html">Games</a>
-            <a href="/html/players.html">Players</a>
-            <a href="/html/rating.html">Rating</a>
+            <a href="./../index.html">HoiPedia</a>
+            <a href="./html/games.html">Games</a>
+            <a href="./html/players.html">Players</a>
+            <a href="./html/rating.html">Rating</a>
         </div>
     </nav>
     <div>
@@ -35,11 +35,11 @@
     </div>
 
 <script>
-    fetch('/gameStats/index.json')
+    fetch('./../gameStats/index.json')
         .then(res => res.json())
         .then(files => {
             return Promise.all(
-                files.map(file => fetch(`/gameStats/${file}`).then(r => r.json()))
+                files.map(file => fetch(`./../gameStats/${file}`).then(r => r.json()))
             );
         })
         .then(allGames => {
