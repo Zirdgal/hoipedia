@@ -20,9 +20,27 @@
         </div>
     </nav>
     <div>
-        <p>Sorry we are still under construction...</p>
-        <img height="50%" width="50%" src="../../img/ukplanning.png">
-    </div>
+        <h1 id="name"></h1>
+        <h2 id="country">Country:</h2>
+        <h2 id="discord">Discord:</h2>
+        <h2 id="rating">Rating:<h2>
 
+        <h3 id="recentGames">Recent games played:</h3>
+    </div>
+<script>
+    const path = window.location.pathname;
+    const fileName = path.substring(path.lastIndexOf('/') + 1); // gets the url of the page (zirdgal.html)
+    const baseName = fileName.replace('.html', ''); // removes the .html 
+    fetch(`../../playerStats/${baseName}.json`)
+    .then(res => res.json()) // res responds from the fetch call and edits the json file
+    .then(playerData => {
+        // takes the playerData stuff to add the basic info
+        document.getElementById("name").textContent = `${playerData.user}`;
+        document.getElementById("country").textContent = `Country: ${playerData.country}`;
+        document.getElementById("discord").textContent = `Discord: ${playerData.discord}`;
+        document.getElementById("recentGames").textContent = `Recent games played: ${playerData.gamesPlayed}`;
+    })
+    .catch(console.error);
+</script>
 </body>
 </html>
