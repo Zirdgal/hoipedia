@@ -55,12 +55,16 @@ nav {
 	display: flex;
 	flex-direction: row;
 	gap: 1vw;
+	width: 1280px;
+	margin: 0 auto;
 }
 .homepage-games {
-	width: 90vw;
+	flex: 9;
+	min-width: 0;
 }
 .homepage-players {
-	width: 10vw;
+	flex: 1;
+	min-width: 0;
 }
 
 table {
