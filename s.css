@@ -56,6 +56,9 @@ nav {
 	flex-direction: row;
 	gap: 1vw;
 }
+.homepage-games {
+	width: 90vw;
+}
 .homepage-players {
 	width: 10vw;
 }
