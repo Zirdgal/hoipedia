@@ -19,22 +19,34 @@
             <a href="./html/rating.html">Rating</a>
         </div>
     </nav>
-    <div>
-        <h1>Latest Games</h1>
-        <table id="gamesTable">
-          <thead>
-            <tr>
-              <th>Name</th>
-              <th>Winning Team</th>
-              <th>Top Player</th>
-              <th>Rating 0.1</th>
-              <th>Date</th>
-            </tr>
-          </thead>
-          <tbody></tbody>
-        </table>
+    <div class="homepage">
+        <div class="homepage-games">
+            <h1>Latest Games</h1>
+            <table id="gamesTable">
+            <thead>
+                <tr>
+                <th>Name</th>
+                <th>Winning Team</th>
+                <th>Top Player</th>
+                <th>Rating 0.1</th>
+                <th>Date</th>
+                </tr>
+            </thead>
+            <tbody></tbody>
+            </table>
+        </div>
+        <div class="homepage-players">
+            <h2>Players:</h2>
+            <ul id="player-list" class="vert-player-list">
+                <li class="player-entry"><a href="./html/players/zirdgal.html"><p>Zirdgal</p></a></li>
+                <li class="player-entry"><a href="./html/players/zirdgal.html"><p>Odobuz</p></a></li>
+            </ul>
+        </div>
     </div>
 
+
+
+<!--<script src="./script/sortList.js" defer></script> -->
 <script>
     fetch('./gameStats/index.json')
         .then(res => res.json())
