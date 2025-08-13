@@ -23,7 +23,10 @@ a {
 a:hover {
     color: var(--accent);
 }
-
+ul {
+    list-style-type: none;
+    padding-left: 0;
+}
 nav {
     width: 100%;
     background-color: var(--secondary);
@@ -49,19 +52,37 @@ nav {
     text-decoration: none;
 }
 table {
-  width: 100%;
-  border-collapse: collapse;
-  margin-top: 20px;
-  text-align: left;
+    width: 100%;
+    border-collapse: collapse;
+    margin-top: 20px;
+    text-align: left;
 }
 th, td {
-  padding: 10px;
-  border-bottom: 1px solid var(--secondary);
+    padding: 10px;
+    border-bottom: 1px solid var(--secondary);
 }
 th {
-  text-align: left;
-  background: var(--secondary);
+    text-align: left;
+    background: var(--secondary);
 }
 tr:hover {
-  background: var(--primary);
+    background: var(--primary);
+}
+
+.player-entry {
+    height: 10vh;
+    width: 10vw;
+    background-color: var(--secondary);
+
+	display: flex;
+	flex-direction: row;
+	text-align: center;
+	justify-content: center;
+	align-items: center;
+}
+
+.player-entry a {
+	color: var(--text);
+	text-decoration: none;
+	font-size: 2.5vh;
 }
