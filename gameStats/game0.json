@@ -1,5 +1,7 @@
 ﻿{
-    "date": "2025-08-12",
+    "date": "12/08/12",
+    "name": "First Test Game",
+    "server": "https://discord.gg/KxePbfnd",
     "winningTeam": "None, Test Game",
     "link": "./games/game0.html",
     "link2": "../games/game0.html",

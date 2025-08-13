@@ -24,10 +24,11 @@
         <table id="gamesTable">
           <thead>
             <tr>
-              <th>Date</th>
+              <th>Name</th>
               <th>Winning Team</th>
               <th>Top Player</th>
               <th>Rating 0.1</th>
+              <th>Date</th>
             </tr>
           </thead>
           <tbody></tbody>
@@ -50,10 +51,11 @@
     
                 const row = document.createElement('tr');
                 row.innerHTML = `
-            <td>${game.date}</td>
+            <td>${game.name}</td>
             <td>${game.winningTeam}</td>
             <td>${topPlayer.user} (${topPlayer.country})</td>
             <td>${topPlayer.rating.toFixed(2)}</td>
+            <td>${game.date}</td>
           `;
                 // Add click listener that redirects to the game's link
                 row.style.cursor = 'pointer';  // change cursor on hover to indicate clickable
