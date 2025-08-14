@@ -20,9 +20,11 @@
         </div>
     </nav>
     <div>
-        <h1>Game Date: <span id="gameDate"></span></h1>
+        <h1 id="gameName"></h1>
+        <h2>Game Date: <span id="gameDate"></span></h2>
         <h2>Winning Team: <span id="winningTeam"></span></h2>
         <h2>Best Player: <span id="bestPlayer"></span></h2>
+        <a id="discord">Discord link</a>
         <p>So uhh this is a test entry nothing actually important should come from this page :)</p>
         <div id="tablesContainer"></div>
     </div>
@@ -31,8 +33,10 @@
     .then(res => res.json())
     .then(gameData => {
         // Display date and winning team
+        document.getElementById('gameName').textContent = gameData.name;
         document.getElementById('gameDate').textContent = gameData.date;
         document.getElementById('winningTeam').textContent = gameData.winningTeam;
+        document.getElementById('discord').href = gameData.server;
         // Find best player 
         const bestPlayer = [...gameData.players]
             .sort((a, b) => {
