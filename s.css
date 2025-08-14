@@ -89,7 +89,7 @@ tr:hover {
 	display: flex;
 	gap: 25px;
 	flex-direction: row;
-    flex-wrap: wrap;
+    flex-wrap: wrap !important;
 }
 
 #player-list.vert-player-list {
