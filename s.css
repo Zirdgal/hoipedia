@@ -89,6 +89,7 @@ tr:hover {
 	display: flex;
 	gap: 25px;
 	flex-direction: row;
+    flex-wrap: wrap;
 }
 
 #player-list.vert-player-list {
@@ -98,7 +99,6 @@ tr:hover {
 
 .player-entry {
     background-color: var(--secondary);
-
 	width: 10vw;
 	height: 10vh;
 }
