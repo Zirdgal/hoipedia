@@ -2,8 +2,12 @@
     "user": "Zirdgal",
     "discord": "z1rd",
     "country": "🇱🇻 Latvia",
-    "gamesPlayed": 
-    [
-        "game0"
+    "gamesPlayed": [
+        {
+            "game0": "0.51"
+        },
+        {
+            "game1": "0.51"
+        }
     ]
 }
