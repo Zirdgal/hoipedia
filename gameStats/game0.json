@@ -5,6 +5,7 @@
     "winningTeam": "None, Test Game",
     "link": "./games/game0.html",
     "link2": "../games/game0.html",
+    "link3" : "../../games/game0.html",
     "players": [
         {
         "user": "Zirdgal",
