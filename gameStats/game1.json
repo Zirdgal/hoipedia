@@ -1,0 +1,54 @@
+{
+    "date": "15/08/25",
+    "name": "Zird's Second Test Game",
+    "server": "https://discord.gg/KxePbfnd",
+    "winningTeam": "None, Test Game",
+    "link": "./games/game1.html",
+    "link2": "../games/game1.html",
+    "link3" : "../../games/game1.html",
+    "players": 
+    [
+      {
+          "user": "Zirdgal",
+          "tag": "HUN",
+          "faction": "None",
+          "country": "the Transleithanian Kingdom",
+          "divisions": 42,
+          "casualties": 33611,
+          "military_factories": 24,
+          "civilian_factories": 47,
+          "shipyards": 0,
+          "ships": 0,
+          "states": 15,
+          "rating": 1.39
+      },
+      {
+          "user" : "Fifi", 
+          "tag": "FRA",
+          "faction": "None",
+          "country": "the French Empire",
+          "divisions": 56,
+          "casualties": 99081,
+          "military_factories": 63,
+          "civilian_factories": 68,
+          "shipyards": 11,
+          "ships": 155,
+          "states": 72,
+          "rating": 0.72
+      },
+      {
+          "user": "Odobuz",
+          "tag": "IRE",
+          "faction": "Axis",
+          "country": "Ireland",
+          "divisions": 7,
+          "casualties": 8288,
+          "military_factories": 19,
+          "civilian_factories": 19,
+          "shipyards": 3,
+          "ships": 0,
+          "states": 4,
+          "rating": 1.19
+      }
+    ]
+}

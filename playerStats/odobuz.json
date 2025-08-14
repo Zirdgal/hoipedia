@@ -1,11 +1,14 @@
 {
     "user": "Odobuz",
-    "id" : "odobuz",
+    "id": "odobuz",
     "discord": "odobuz",
     "country": "🇺🇦 Ukraine",
     "gamesPlayed": [
         {
             "game0": "0.5"
+        },
+        {
+            "game1": "1.19"
         }
     ]
 }

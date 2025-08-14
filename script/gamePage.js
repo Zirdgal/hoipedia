@@ -30,7 +30,7 @@ document.addEventListener("DOMContentLoaded", function() {
             if (players.length === 0) return;
 
             const factionHeader = document.createElement('h2');
-            factionHeader.textContent = faction === 'None' ? 'No Faction' : faction;
+            factionHeader.textContent = faction === 'None' ? 'Other/No Faction' : faction;
             container.appendChild(factionHeader);
 
             const table = document.createElement('table');

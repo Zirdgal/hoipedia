@@ -88,7 +88,7 @@
                 const text = e.target.result;
 
                 // regex pattern for parsing lines (adjust if needed)
-                const pattern = /\{ZIRD-RATING\},(\w+),([^,]+),Divs:(\d+),casualties:(\d+),Mills:(\d+),Civs:(\d+),ShipYards:(\d+),Ships:(\d+),ControlledStates:(\d+)/g;
+                const pattern = /\{ZIRD-RATING\},(\w+),([^,]+),div:(\d+),cas:(\d+),mil:(\d+),civ:(\d+),dock:(\d+),ship:(\d+),states:(\d+)/g;
                 let match;
                 parsedData = [];
 
@@ -170,15 +170,27 @@
 				let statCount = 0;
 
 				statsToCheck.forEach(stat => {
-					if (first[stat] > 0) {
+                    if (first[stat] > 0) {
                         let ratio = last[stat] / first[stat];
-                        // Scale ratio so that 2x = 1.0 rating contribution
-                        // Ratio of 1x = 0.5 rating, etc.
-                        let scaledRatio = ratio / 2;
-                        totalRating += scaledRatio;
+                        let absGain = last[stat] - first[stat];
+
+                        // 1. Cap relative growth boost (stops tiny nations inflating)
+                        let cappedRatio = Math.min(ratio, 3);
+
+                        // 2. Old ratio score: 2x → 1.0, 1x → 0.5
+                        let ratioScore = cappedRatio / 2;
+
+                        // 3. Absolute gain score (scaled so big nations benefit more)
+                        //    This term is small — just enough to tip France over Ireland
+                        let absScore = absGain / (first[stat] + 10); // "+10" dampens tiny starts
+
+                        // 4. Blend scores: mostly ratio, small absolute influence
+                        let blendedScore = (0.8 * ratioScore) + (0.2 * absScore);
+
+                        totalRating += blendedScore;
                         statCount++;
                     }
-				});
+                });
 
 				const rating = statCount > 0 ? totalRating / statCount : 0;
 
@@ -192,7 +204,7 @@
 					shipyards: last.shipyards,
 					ships: last.ships,
 					states: last.states,
-					rating: rating.toFixed(2)
+					rating: parseFloat(rating.toFixed(2))
 				});
 			});
 
