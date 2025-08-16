@@ -3,5 +3,9 @@
     "id": "rightwingchicken",
     "discord": "psyduck3",
     "country": "🇦🇺 Australia",
-    "gamesPlayed": []
+    "gamesPlayed": [
+        {
+            "game2": "0.88"
+        }
+    ]
 }

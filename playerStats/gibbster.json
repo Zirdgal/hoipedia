@@ -3,5 +3,9 @@
     "id": "gibbster",
     "discord": "goodly_gibbster",
     "country": "🇺🇸 United States",
-    "gamesPlayed": []
+    "gamesPlayed": [
+        {
+            "game2": "1.07"
+        }
+    ]
 }
